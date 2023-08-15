@@ -1,1 +1,16 @@
 ---
+- name: "Enable and start Grafana"
+  register: install_grafana_service_status
+  changed_when: install_grafana_service_status.state != "started"
+  ansible.builtin.service:
+    name: "grafana-server"
+    state: "started"
+    enabled: yes
+
+- name: "Restart Grafana"
+  register: install_grafana_service_status
+  changed_when: install_grafana_service_status.state != "restarted"
+  ansible.builtin.service:
+    name: "grafana-server"
+    state: "restarted"
+    daemon_reload: true

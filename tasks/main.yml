@@ -1,1 +1,52 @@
 ---
+- name: "Install packages"
+  ansible.builtin.package:
+    update_cache: true
+    name:
+      - "apt-transport-https"
+      - "software-properties-common"
+      - "wget"
+
+- name: "Install Grafana"
+  notify: "Enable and start Grafana"
+  block:
+    - name: "Add Grafana GPG apt Key"
+      ansible.builtin.apt_key:
+        url: "https://apt.grafana.com/gpg.key"
+
+    - name: "Add Grafana Repository"
+      ansible.builtin.apt_repository:
+        repo: "deb https://apt.grafana.com stable main"
+
+    - name: "Update apt and install Grafana"
+      ansible.builtin.apt:
+        update_cache: true
+        name:
+          - "grafana"
+
+- name: "Import Grafana conf"
+  notify: "Restart Grafana"
+  block:
+    - name: "Check if {{ install_grafana_data }} folder exist"
+      register: file_check
+      ansible.builtin.stat:
+        path: "{{ install_grafana_data }}"
+
+    - name: "Create {{ install_grafana_data }} dir"
+      when: not file_check.stat.exists
+      ansible.builtin.file:
+        path: "{{ install_grafana_data }}"
+        state: directory
+        recurse: yes
+        owner: "root"
+        group: "grafana"
+        mode: "0644"
+
+    - name: "Import Grafana conf"
+      ansible.builtin.template:
+        src: "templates/grafana.ini.j2"
+        dest: "/etc/grafana/grafana.ini"
+        lstrip_blocks: yes
+        owner: "root"
+        group: "grafana"
+        mode: "0644"

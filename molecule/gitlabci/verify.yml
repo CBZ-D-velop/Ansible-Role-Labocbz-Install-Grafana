@@ -5,3 +5,9 @@
   hosts: "all"
   gather_facts: false
   tasks:
+
+    - name: "Get Grafana service current state"
+      register: install_grafana_service_status
+      failed_when: not install_grafana_service_status.status.ActiveState == 'active'
+      ansible.builtin.systemd:
+        name: "grafana-server"
