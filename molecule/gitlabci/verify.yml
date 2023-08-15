@@ -15,5 +15,5 @@
     - name: "Check Grafana connectivity"
       ansible.builtin.wait_for:
         host: "{{ inventory_hostname }}"
-        port: "{{ inv_install_grafana_http_port }}"
+        port: "127.0.0.1"
         timeout: 120
