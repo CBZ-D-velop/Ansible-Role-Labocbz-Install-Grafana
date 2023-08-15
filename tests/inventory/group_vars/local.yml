@@ -1,1 +1,20 @@
 ---
+inv_prepare_host_users:
+  - login: "root"
+    group: "grafana"
+
+inv_install_grafana_app_mode: "production"
+inv_install_grafana_data: "/var/lib/grafana"
+inv_install_grafana_temp_data_lifetime: "24h"
+inv_install_grafana_protocol: "https"
+inv_install_grafana_min_tls_version: ""
+inv_install_grafana_http_addr: "0.0.0.0"
+inv_install_grafana_http_port: 3000
+inv_install_grafana_domain: "localhost"
+inv_install_grafana_enforce_domain: false
+inv_install_grafana_root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+inv_install_grafana_serve_from_sub_path: false
+inv_install_grafana_router_logging: false
+inv_install_grafana_enable_gzip: true
+inv_install_grafana_cert_file: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.crt"
+inv_install_grafana_cert_key: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.key"

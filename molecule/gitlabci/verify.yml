@@ -5,3 +5,15 @@
   hosts: "all"
   gather_facts: false
   tasks:
+
+    - name: "Get Grafana service current state"
+      register: install_grafana_service_status
+      failed_when: not install_grafana_service_status.status.ActiveState == 'active'
+      ansible.builtin.systemd:
+        name: "grafana-server"
+
+    - name: "Check Grafana connectivity"
+      ansible.builtin.wait_for:
+        host: "{{ inventory_hostname }}"
+        port: "{{ inv_install_grafana_http_port }}"
+        timeout: 120

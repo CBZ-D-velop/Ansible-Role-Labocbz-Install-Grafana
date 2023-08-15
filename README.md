@@ -17,6 +17,18 @@
 
 An Ansible role to install and configure Grafana on your host.
 
+This Ansible role is designed to facilitate the installation and default configuration of Grafana, an open-source monitoring and data visualization platform. The role aims to simplify the deployment process while allowing for some basic customization.
+
+By default, the role sets up Grafana in the "production" app mode. It configures data storage paths, specifying the location for Grafana's data and temp data with a specified lifetime. The protocol and port for communication are also established, with an option to enable TLS 1.3 for enhanced security.
+
+Grafana is configured to listen on the specified IP address and port, accessible via the defined domain. The role supports serving Grafana from a sub-path, and it allows you to set up router logging and enable gzip compression.
+
+The role takes into account SSL/TLS settings, providing the option to use SSL certificates for secure communication. However, client authentication is not configured by default.
+
+It is noted that the default password remains unchanged after installation, as it depends on the target installation. The role advises reviewing the grafana.ini configuration present in ./templates before further customization.
+
+In summary, the Ansible role streamlines the installation and basic configuration of Grafana, while allowing for limited customization of key parameters. It is recommended to review the default configuration file before making further adjustments to ensure alignment with your deployment needs.
+
 ## Folder structure
 
 By default Ansible will look in each directory within a role for a main.yml file for relevant content (also man.yml and main):
@@ -100,7 +112,22 @@ Some vars a required to run this role:
 
 ```YAML
 ---
-your defaults vars here
+install_grafana_app_mode: "production"
+install_grafana_data: "/var/lib/grafana"
+install_grafana_temp_data_lifetime: "24h"
+install_grafana_protocol: "http"
+install_grafana_min_tls_version: "" #TLS1.3
+install_grafana_http_addr: "0.0.0.0"
+install_grafana_http_port: 3000
+install_grafana_domain: "localhost"
+install_grafana_enforce_domain: false
+install_grafana_root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+install_grafana_serve_from_sub_path: false
+install_grafana_router_logging: false
+install_grafana_enable_gzip: true
+install_grafana_cert_file: ""
+install_grafana_cert_key: ""
+
 ```
 
 The best way is to modify these vars by copy the ./default/main.yml file into the ./vars and edit with your personnals requirements.
@@ -112,13 +139,32 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-all vars from to put/from your inventory
+inv_prepare_host_users:
+  - login: "root"
+    group: "grafana"
+
+inv_install_grafana_app_mode: "production"
+inv_install_grafana_data: "/var/lib/grafana"
+inv_install_grafana_temp_data_lifetime: "24h"
+inv_install_grafana_protocol: "https"
+inv_install_grafana_min_tls_version: ""
+inv_install_grafana_http_addr: "0.0.0.0"
+inv_install_grafana_http_port: 3000
+inv_install_grafana_domain: "localhost"
+inv_install_grafana_enforce_domain: false
+inv_install_grafana_root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+inv_install_grafana_serve_from_sub_path: false
+inv_install_grafana_router_logging: false
+inv_install_grafana_enable_gzip: true
+inv_install_grafana_cert_file: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.crt"
+inv_install_grafana_cert_key: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.key"
+
 ```
 
 ```YAML
 # From AWX / Tower
 ---
-all vars from to put/from AWX / Tower
+
 ```
 
 ### Run
@@ -126,8 +172,27 @@ all vars from to put/from AWX / Tower
 To run this role, you can copy the molecule/default/converge.yml playbook and add it into your playbook:
 
 ```YAML
----
-your converge.yml file here
+- name: "Include labocbz.install_grafana"
+    tags:
+    - "labocbz.install_grafana"
+    vars:
+    install_grafana_app_mode: "{{ inv_install_grafana_app_mode }}"
+    install_grafana_data: "{{ inv_install_grafana_data }}"
+    install_grafana_temp_data_lifetime: "{{ inv_install_grafana_temp_data_lifetime }}"
+    install_grafana_protocol: "{{ inv_install_grafana_protocol }}"
+    install_grafana_min_tls_version: "{{ inv_install_grafana_min_tls_version }}"
+    install_grafana_http_addr: "{{ inv_install_grafana_http_addr }}"
+    install_grafana_http_port: "{{ inv_install_grafana_http_port }}"
+    install_grafana_domain: "{{ inv_install_grafana_domain }}"
+    install_grafana_enforce_domain: "{{ inv_install_grafana_enforce_domain }}"
+    install_grafana_root_url: "{{ inv_install_grafana_root_url }}"
+    install_grafana_serve_from_sub_path: "{{ inv_install_grafana_serve_from_sub_path }}"
+    install_grafana_router_logging: "{{ inv_install_grafana_router_logging }}"
+    install_grafana_enable_gzip: "{{ inv_install_grafana_enable_gzip }}"
+    install_grafana_cert_file: "{{ inv_install_grafana_cert_file }}"
+    install_grafana_cert_key: "{{ inv_install_grafana_cert_key }}"
+    ansible.builtin.include_role:
+    name: "labocbz.install_grafana"
 ```
 
 ## Architectural Decisions Records

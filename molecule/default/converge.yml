@@ -12,5 +12,21 @@
     - name: "Include labocbz.install_grafana"
       tags:
         - "labocbz.install_grafana"
+      vars:
+        install_grafana_app_mode: "{{ inv_install_grafana_app_mode }}"
+        install_grafana_data: "{{ inv_install_grafana_data }}"
+        install_grafana_temp_data_lifetime: "{{ inv_install_grafana_temp_data_lifetime }}"
+        install_grafana_protocol: "{{ inv_install_grafana_protocol }}"
+        install_grafana_min_tls_version: "{{ inv_install_grafana_min_tls_version }}"
+        install_grafana_http_addr: "{{ inv_install_grafana_http_addr }}"
+        install_grafana_http_port: "{{ inv_install_grafana_http_port }}"
+        install_grafana_domain: "{{ inv_install_grafana_domain }}"
+        install_grafana_enforce_domain: "{{ inv_install_grafana_enforce_domain }}"
+        install_grafana_root_url: "{{ inv_install_grafana_root_url }}"
+        install_grafana_serve_from_sub_path: "{{ inv_install_grafana_serve_from_sub_path }}"
+        install_grafana_router_logging: "{{ inv_install_grafana_router_logging }}"
+        install_grafana_enable_gzip: "{{ inv_install_grafana_enable_gzip }}"
+        install_grafana_cert_file: "{{ inv_install_grafana_cert_file }}"
+        install_grafana_cert_key: "{{ inv_install_grafana_cert_key }}"
       ansible.builtin.include_role:
         name: "labocbz.install_grafana"
