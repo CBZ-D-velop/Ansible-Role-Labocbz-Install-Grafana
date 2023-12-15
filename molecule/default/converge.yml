@@ -28,5 +28,8 @@
         install_grafana_enable_gzip: "{{ inv_install_grafana_enable_gzip }}"
         install_grafana_cert_file: "{{ inv_install_grafana_cert_file }}"
         install_grafana_cert_key: "{{ inv_install_grafana_cert_key }}"
+        install_grafana_log_mode: "{{ inv_install_grafana_log_mode }}"
+        install_grafana_log_level: "{{ inv_install_grafana_log_level }}"
+        install_grafana_log_max_days: "{{ inv_install_grafana_log_max_days }}"
       ansible.builtin.include_role:
         name: "labocbz.install_grafana"

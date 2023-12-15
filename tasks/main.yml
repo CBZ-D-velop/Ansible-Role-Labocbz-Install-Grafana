@@ -38,15 +38,36 @@
         path: "{{ install_grafana_data }}"
         state: directory
         recurse: yes
-        owner: "root"
-        group: "grafana"
-        mode: "0644"
+        owner: "{{ install_grafana_user }}"
+        group: "{{ install_grafana_group }}"
+        mode: "0700"
 
     - name: "Import Grafana conf"
       ansible.builtin.template:
         src: "templates/grafana.ini.j2"
         dest: "/etc/grafana/grafana.ini"
         lstrip_blocks: yes
-        owner: "root"
-        group: "grafana"
-        mode: "0644"
+        owner: "{{ install_grafana_user }}"
+        group: "{{ install_grafana_group }}"
+        mode: "0700"
+
+    - name: "Import Grafana /etc/default"
+      ansible.builtin.template:
+        src: "templates/grafana-server.j2"
+        dest: "/etc/default/grafana-server"
+        owner: "{{ install_grafana_user }}"
+        group: "{{ install_grafana_group }}"
+        mode: "0700"
+        lstrip_blocks: yes
+
+- name: "Import Grafana service file"
+  notify:
+    - "Enable and start Grafana"
+    - "Restart Grafana"
+  ansible.builtin.template:
+    src: "templates/grafana-server.service.j2"
+    dest: "/usr/lib/systemd/system/grafana-server.service"
+    mode: "0600"
+    group: "root"
+    owner: "root"
+    lstrip_blocks: yes

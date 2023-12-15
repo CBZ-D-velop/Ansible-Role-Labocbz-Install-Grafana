@@ -19,6 +19,6 @@ inv_cert_bundles:
     dest: "/etc/grafana/ssl"
     #src_user: "myUser"
     #src_password: "secretPassword"
-    owner: "root"
+    owner: "grafana"
     group: "grafana"
-    mode: "0644"
+    mode: "0700"

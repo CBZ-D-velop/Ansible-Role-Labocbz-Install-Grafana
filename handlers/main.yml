@@ -6,6 +6,7 @@
     name: "grafana-server"
     state: "started"
     enabled: yes
+    daemon_reload: true
 
 - name: "Restart Grafana"
   register: install_grafana_service_status

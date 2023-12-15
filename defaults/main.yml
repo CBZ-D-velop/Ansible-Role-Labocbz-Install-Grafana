@@ -14,3 +14,10 @@ install_grafana_router_logging: false
 install_grafana_enable_gzip: true
 install_grafana_cert_file: ""
 install_grafana_cert_key: ""
+
+install_grafana_log_mode: "console file"
+install_grafana_log_level: "info"
+install_grafana_log_max_days: 7
+
+install_grafana_user: "grafana"
+install_grafana_group: "grafana"
