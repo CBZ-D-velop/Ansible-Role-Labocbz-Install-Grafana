@@ -46,7 +46,31 @@ By default Ansible will look in each directory within a role for a main.yml file
 │   └── README.md  # Contains documentation for the handlers.
 ├── meta
 │   ├── main.yml  # Contains metadata about the role, including dependencies and supported platforms.
-│   └── README.md  # Contains documentation for the role metadata.
+│   └── README.md  ---
+inv_prepare_host_system_users:
+  - login: "grafana"
+    group: "grafana"
+
+inv_install_grafana_app_mode: "production"
+inv_install_grafana_data: "/var/lib/grafana"
+inv_install_grafana_temp_data_lifetime: "24h"
+inv_install_grafana_protocol: "https"
+inv_install_grafana_min_tls_version: ""
+inv_install_grafana_http_addr: "0.0.0.0"
+inv_install_grafana_http_port: 3000
+inv_install_grafana_domain: "localhost"
+inv_install_grafana_enforce_domain: false
+inv_install_grafana_root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+inv_install_grafana_serve_from_sub_path: false
+inv_install_grafana_router_logging: false
+inv_install_grafana_enable_gzip: true
+inv_install_grafana_cert_file: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.crt"
+inv_install_grafana_cert_key: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.key"
+
+inv_install_grafana_log_mode: "console file"
+inv_install_grafana_log_level: "info"
+inv_install_grafana_log_max_days: 7
+# Contains documentation for the role metadata.
 ├── tasks
 │   ├── main.yml  # Contains tasks to be executed by the role on the managed nodes.
 │   └── README.md  # Contains documentation for the tasks.
@@ -128,6 +152,10 @@ install_grafana_enable_gzip: true
 install_grafana_cert_file: ""
 install_grafana_cert_key: ""
 
+install_grafana_log_mode: "console file"
+install_grafana_log_level: "info"
+install_grafana_log_max_days: 7
+
 ```
 
 The best way is to modify these vars by copy the ./default/main.yml file into the ./vars and edit with your personnals requirements.
@@ -139,8 +167,8 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-inv_prepare_host_users:
-  - login: "root"
+inv_prepare_host_system_users:
+  - login: "grafana"
     group: "grafana"
 
 inv_install_grafana_app_mode: "production"
@@ -159,6 +187,10 @@ inv_install_grafana_enable_gzip: true
 inv_install_grafana_cert_file: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.crt"
 inv_install_grafana_cert_key: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.key"
 
+inv_install_grafana_log_mode: "console file"
+inv_install_grafana_log_level: "info"
+inv_install_grafana_log_max_days: 7
+
 ```
 
 ```YAML
@@ -173,9 +205,9 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
 
 ```YAML
 - name: "Include labocbz.install_grafana"
-    tags:
+  tags:
     - "labocbz.install_grafana"
-    vars:
+  vars:
     install_grafana_app_mode: "{{ inv_install_grafana_app_mode }}"
     install_grafana_data: "{{ inv_install_grafana_data }}"
     install_grafana_temp_data_lifetime: "{{ inv_install_grafana_temp_data_lifetime }}"
@@ -191,7 +223,10 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
     install_grafana_enable_gzip: "{{ inv_install_grafana_enable_gzip }}"
     install_grafana_cert_file: "{{ inv_install_grafana_cert_file }}"
     install_grafana_cert_key: "{{ inv_install_grafana_cert_key }}"
-    ansible.builtin.include_role:
+    install_grafana_log_mode: "{{ inv_install_grafana_log_mode }}"
+    install_grafana_log_level: "{{ inv_install_grafana_log_level }}"
+    install_grafana_log_max_days: "{{ inv_install_grafana_log_max_days }}"
+  ansible.builtin.include_role:
     name: "labocbz.install_grafana"
 ```
 
@@ -209,6 +244,10 @@ Here you can put your change to keep a trace of your work and decisions.
 * Molecule now use remote Docker image by Lord Robin Crombez
 * Molecule now use custom Docker image in CI/CD by env vars
 * New CICD with needs and optimization
+
+### 2023-12-15: System users
+
+* Role can now use system users and address groups
 
 ## Authors
 

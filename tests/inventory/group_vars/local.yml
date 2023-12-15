@@ -1,6 +1,6 @@
 ---
-inv_prepare_host_users:
-  - login: "root"
+inv_prepare_host_system_users:
+  - login: "grafana"
     group: "grafana"
 
 inv_install_grafana_app_mode: "production"
@@ -18,3 +18,7 @@ inv_install_grafana_router_logging: false
 inv_install_grafana_enable_gzip: true
 inv_install_grafana_cert_file: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.crt"
 inv_install_grafana_cert_key: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.key"
+
+inv_install_grafana_log_mode: "file"
+inv_install_grafana_log_level: "warn"
+inv_install_grafana_log_max_days: 7
