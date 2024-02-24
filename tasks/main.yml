@@ -27,19 +27,19 @@
 - name: "Import Grafana conf"
   notify: "Restart Grafana"
   block:
-    - name: "Check if {{ install_grafana_data }} folder exist"
+    - name: "Check if data folder exist"
       register: file_check
       ansible.builtin.stat:
-        path: "{{ install_grafana_data }}"
+        path: "{{ install_grafana__data }}"
 
-    - name: "Create {{ install_grafana_data }} dir"
+    - name: "Create data dir"
       when: not file_check.stat.exists
       ansible.builtin.file:
-        path: "{{ install_grafana_data }}"
+        path: "{{ install_grafana__data }}"
         state: directory
         recurse: yes
-        owner: "{{ install_grafana_user }}"
-        group: "{{ install_grafana_group }}"
+        owner: "{{ install_grafana__user }}"
+        group: "{{ install_grafana__group }}"
         mode: "0700"
 
     - name: "Import Grafana conf"
@@ -47,16 +47,16 @@
         src: "templates/grafana.ini.j2"
         dest: "/etc/grafana/grafana.ini"
         lstrip_blocks: yes
-        owner: "{{ install_grafana_user }}"
-        group: "{{ install_grafana_group }}"
+        owner: "{{ install_grafana__user }}"
+        group: "{{ install_grafana__group }}"
         mode: "0700"
 
     - name: "Import Grafana /etc/default"
       ansible.builtin.template:
         src: "templates/grafana-server.j2"
         dest: "/etc/default/grafana-server"
-        owner: "{{ install_grafana_user }}"
-        group: "{{ install_grafana_group }}"
+        owner: "{{ install_grafana__user }}"
+        group: "{{ install_grafana__group }}"
         mode: "0700"
         lstrip_blocks: yes
 
