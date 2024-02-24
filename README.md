@@ -47,29 +47,29 @@ By default Ansible will look in each directory within a role for a main.yml file
 ├── meta
 │   ├── main.yml  # Contains metadata about the role, including dependencies and supported platforms.
 │   └── README.md  ---
-inv_prepare_host_system_users:
+inv_prepare_host__system_users:
   - login: "grafana"
     group: "grafana"
 
-inv_install_grafana_app_mode: "production"
-inv_install_grafana_data: "/var/lib/grafana"
-inv_install_grafana_temp_data_lifetime: "24h"
-inv_install_grafana_protocol: "https"
-inv_install_grafana_min_tls_version: ""
-inv_install_grafana_http_addr: "0.0.0.0"
-inv_install_grafana_http_port: 3000
-inv_install_grafana_domain: "localhost"
-inv_install_grafana_enforce_domain: false
-inv_install_grafana_root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
-inv_install_grafana_serve_from_sub_path: false
-inv_install_grafana_router_logging: false
-inv_install_grafana_enable_gzip: true
-inv_install_grafana_cert_file: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.crt"
-inv_install_grafana_cert_key: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.key"
+inv_install_grafana__app_mode: "production"
+inv_install_grafana__data: "/var/lib/grafana"
+inv_install_grafana__temp_data_lifetime: "24h"
+inv_install_grafana__protocol: "https"
+inv_install_grafana__min_tls_version: ""
+inv_install_grafana__http_addr: "0.0.0.0"
+inv_install_grafana__http_port: 3000
+inv_install_grafana__domain: "localhost"
+inv_install_grafana__enforce_domain: false
+inv_install_grafana__root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+inv_install_grafana__serve_from_sub_path: false
+inv_install_grafana__router_logging: false
+inv_install_grafana__enable_gzip: true
+inv_install_grafana__cert_file: "/etc/grafana/ssl/my-grafana-server.domain.tld/my-grafana-server.domain.tld.pem.crt"
+inv_install_grafana__cert_key: "/etc/grafana/ssl/my-grafana-server.domain.tld/my-grafana-server.domain.tld.pem.key"
 
-inv_install_grafana_log_mode: "console file"
-inv_install_grafana_log_level: "info"
-inv_install_grafana_log_max_days: 7
+inv_install_grafana__log_mode: "console file"
+inv_install_grafana__log_level: "info"
+inv_install_grafana__log_max_days: 7
 # Contains documentation for the role metadata.
 ├── tasks
 │   ├── main.yml  # Contains tasks to be executed by the role on the managed nodes.
@@ -136,25 +136,25 @@ Some vars a required to run this role:
 
 ```YAML
 ---
-install_grafana_app_mode: "production"
-install_grafana_data: "/var/lib/grafana"
-install_grafana_temp_data_lifetime: "24h"
-install_grafana_protocol: "http"
-install_grafana_min_tls_version: "" #TLS1.3
-install_grafana_http_addr: "0.0.0.0"
-install_grafana_http_port: 3000
-install_grafana_domain: "localhost"
-install_grafana_enforce_domain: false
-install_grafana_root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
-install_grafana_serve_from_sub_path: false
-install_grafana_router_logging: false
-install_grafana_enable_gzip: true
-install_grafana_cert_file: ""
-install_grafana_cert_key: ""
+install_grafana__app_mode: "production"
+install_grafana__data: "/var/lib/grafana"
+install_grafana__temp_data_lifetime: "24h"
+install_grafana__protocol: "http"
+install_grafana__min_tls_version: "" #TLS1.3
+install_grafana__http_addr: "0.0.0.0"
+install_grafana__http_port: 3000
+install_grafana__domain: "localhost"
+install_grafana__enforce_domain: false
+install_grafana__root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+install_grafana__serve_from_sub_path: false
+install_grafana__router_logging: false
+install_grafana__enable_gzip: true
+install_grafana__cert_file: ""
+install_grafana__cert_key: ""
 
-install_grafana_log_mode: "console file"
-install_grafana_log_level: "info"
-install_grafana_log_max_days: 7
+install_grafana__log_mode: "console file"
+install_grafana__log_level: "info"
+install_grafana__log_max_days: 7
 
 ```
 
@@ -167,29 +167,29 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-inv_prepare_host_system_users:
+inv_prepare_host__system_users:
   - login: "grafana"
     group: "grafana"
 
-inv_install_grafana_app_mode: "production"
-inv_install_grafana_data: "/var/lib/grafana"
-inv_install_grafana_temp_data_lifetime: "24h"
-inv_install_grafana_protocol: "https"
-inv_install_grafana_min_tls_version: ""
-inv_install_grafana_http_addr: "0.0.0.0"
-inv_install_grafana_http_port: 3000
-inv_install_grafana_domain: "localhost"
-inv_install_grafana_enforce_domain: false
-inv_install_grafana_root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
-inv_install_grafana_serve_from_sub_path: false
-inv_install_grafana_router_logging: false
-inv_install_grafana_enable_gzip: true
-inv_install_grafana_cert_file: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.crt"
-inv_install_grafana_cert_key: "/etc/grafana/ssl/my-grafana.domain.tld/my-grafana.domain.tld.pem.key"
+inv_install_grafana__app_mode: "production"
+inv_install_grafana__data: "/var/lib/grafana"
+inv_install_grafana__temp_data_lifetime: "24h"
+inv_install_grafana__protocol: "https"
+inv_install_grafana__min_tls_version: ""
+inv_install_grafana__http_addr: "0.0.0.0"
+inv_install_grafana__http_port: 3000
+inv_install_grafana__domain: "localhost"
+inv_install_grafana__enforce_domain: false
+inv_install_grafana__root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+inv_install_grafana__serve_from_sub_path: false
+inv_install_grafana__router_logging: false
+inv_install_grafana__enable_gzip: true
+inv_install_grafana__cert_file: "/etc/grafana/ssl/my-grafana-server.domain.tld/my-grafana-server.domain.tld.pem.crt"
+inv_install_grafana__cert_key: "/etc/grafana/ssl/my-grafana-server.domain.tld/my-grafana-server.domain.tld.pem.key"
 
-inv_install_grafana_log_mode: "console file"
-inv_install_grafana_log_level: "info"
-inv_install_grafana_log_max_days: 7
+inv_install_grafana__log_mode: "console file"
+inv_install_grafana__log_level: "info"
+inv_install_grafana__log_max_days: 7
 
 ```
 
@@ -208,24 +208,24 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
   tags:
     - "labocbz.install_grafana"
   vars:
-    install_grafana_app_mode: "{{ inv_install_grafana_app_mode }}"
-    install_grafana_data: "{{ inv_install_grafana_data }}"
-    install_grafana_temp_data_lifetime: "{{ inv_install_grafana_temp_data_lifetime }}"
-    install_grafana_protocol: "{{ inv_install_grafana_protocol }}"
-    install_grafana_min_tls_version: "{{ inv_install_grafana_min_tls_version }}"
-    install_grafana_http_addr: "{{ inv_install_grafana_http_addr }}"
-    install_grafana_http_port: "{{ inv_install_grafana_http_port }}"
-    install_grafana_domain: "{{ inv_install_grafana_domain }}"
-    install_grafana_enforce_domain: "{{ inv_install_grafana_enforce_domain }}"
-    install_grafana_root_url: "{{ inv_install_grafana_root_url }}"
-    install_grafana_serve_from_sub_path: "{{ inv_install_grafana_serve_from_sub_path }}"
-    install_grafana_router_logging: "{{ inv_install_grafana_router_logging }}"
-    install_grafana_enable_gzip: "{{ inv_install_grafana_enable_gzip }}"
-    install_grafana_cert_file: "{{ inv_install_grafana_cert_file }}"
-    install_grafana_cert_key: "{{ inv_install_grafana_cert_key }}"
-    install_grafana_log_mode: "{{ inv_install_grafana_log_mode }}"
-    install_grafana_log_level: "{{ inv_install_grafana_log_level }}"
-    install_grafana_log_max_days: "{{ inv_install_grafana_log_max_days }}"
+    install_grafana__app_mode: "{{ inv_install_grafana__app_mode }}"
+    install_grafana__data: "{{ inv_install_grafana__data }}"
+    install_grafana__temp_data_lifetime: "{{ inv_install_grafana__temp_data_lifetime }}"
+    install_grafana__protocol: "{{ inv_install_grafana__protocol }}"
+    install_grafana__min_tls_version: "{{ inv_install_grafana__min_tls_version }}"
+    install_grafana__http_addr: "{{ inv_install_grafana__http_addr }}"
+    install_grafana__http_port: "{{ inv_install_grafana__http_port }}"
+    install_grafana__domain: "{{ inv_install_grafana__domain }}"
+    install_grafana__enforce_domain: "{{ inv_install_grafana__enforce_domain }}"
+    install_grafana__root_url: "{{ inv_install_grafana__root_url }}"
+    install_grafana__serve_from_sub_path: "{{ inv_install_grafana__serve_from_sub_path }}"
+    install_grafana__router_logging: "{{ inv_install_grafana__router_logging }}"
+    install_grafana__enable_gzip: "{{ inv_install_grafana__enable_gzip }}"
+    install_grafana__cert_file: "{{ inv_install_grafana__cert_file }}"
+    install_grafana__cert_key: "{{ inv_install_grafana__cert_key }}"
+    install_grafana__log_mode: "{{ inv_install_grafana__log_mode }}"
+    install_grafana__log_level: "{{ inv_install_grafana__log_level }}"
+    install_grafana__log_max_days: "{{ inv_install_grafana__log_max_days }}"
   ansible.builtin.include_role:
     name: "labocbz.install_grafana"
 ```
@@ -248,6 +248,11 @@ Here you can put your change to keep a trace of your work and decisions.
 ### 2023-12-15: System users
 
 * Role can now use system users and address groups
+
+### 2024-02-24: Fix and CI
+
+* Added support for new CI base
+* Edit all vars with __
 
 ## Authors
 

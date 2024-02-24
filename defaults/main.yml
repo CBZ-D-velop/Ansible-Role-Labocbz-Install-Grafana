@@ -1,23 +1,23 @@
 ---
-install_grafana_app_mode: "production"
-install_grafana_data: "/var/lib/grafana"
-install_grafana_temp_data_lifetime: "24h"
-install_grafana_protocol: "http"
-install_grafana_min_tls_version: "" #TLS1.3
-install_grafana_http_addr: "0.0.0.0"
-install_grafana_http_port: 3000
-install_grafana_domain: "localhost"
-install_grafana_enforce_domain: false
-install_grafana_root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
-install_grafana_serve_from_sub_path: false
-install_grafana_router_logging: false
-install_grafana_enable_gzip: true
-install_grafana_cert_file: ""
-install_grafana_cert_key: ""
+install_grafana__app_mode: "production"
+install_grafana__data: "/var/lib/grafana"
+install_grafana__temp_data_lifetime: "24h"
+install_grafana__protocol: "http"
+install_grafana__min_tls_version: "" #TLS1.3
+install_grafana__http_addr: "0.0.0.0"
+install_grafana__http_port: 3000
+install_grafana__domain: "localhost"
+install_grafana__enforce_domain: false
+install_grafana__root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+install_grafana__serve_from_sub_path: false
+install_grafana__router_logging: false
+install_grafana__enable_gzip: true
+install_grafana__cert_file: ""
+install_grafana__cert_key: ""
 
-install_grafana_log_mode: "console file"
-install_grafana_log_level: "info"
-install_grafana_log_max_days: 7
+install_grafana__log_mode: "console file"
+install_grafana__log_level: "info"
+install_grafana__log_max_days: 7
 
-install_grafana_user: "grafana"
-install_grafana_group: "grafana"
+install_grafana__user: "grafana"
+install_grafana__group: "grafana"

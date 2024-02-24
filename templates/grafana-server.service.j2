@@ -13,8 +13,8 @@ After=postgresql.service mariadb.service mysql.service influxdb.service
 
 [Service]
 EnvironmentFile=/etc/default/grafana-server
-User={{ install_grafana_user }}
-Group={{ install_grafana_group }}
+User={{ install_grafana__user }}
+Group={{ install_grafana__group }}
 Type=simple
 Restart=on-failure
 WorkingDirectory=/usr/share/grafana

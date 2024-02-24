@@ -1,0 +1,24 @@
+---
+inv_prepare_host__system_users:
+  - login: "grafana"
+    group: "grafana"
+
+inv_install_grafana__app_mode: "production"
+inv_install_grafana__data: "/var/lib/grafana"
+inv_install_grafana__temp_data_lifetime: "24h"
+inv_install_grafana__protocol: "https"
+inv_install_grafana__min_tls_version: ""
+inv_install_grafana__http_addr: "0.0.0.0"
+inv_install_grafana__http_port: 3000
+inv_install_grafana__domain: "localhost"
+inv_install_grafana__enforce_domain: false
+inv_install_grafana__root_url: "%(protocol)s://%(domain)s:%(http_port)s/"
+inv_install_grafana__serve_from_sub_path: false
+inv_install_grafana__router_logging: false
+inv_install_grafana__enable_gzip: true
+inv_install_grafana__cert_file: "/etc/grafana/ssl/my-grafana-server.domain.tld/my-grafana-server.domain.tld.pem.crt"
+inv_install_grafana__cert_key: "/etc/grafana/ssl/my-grafana-server.domain.tld/my-grafana-server.domain.tld.pem.key"
+
+inv_install_grafana__log_mode: "file"
+inv_install_grafana__log_level: "warn"
+inv_install_grafana__log_max_days: 7

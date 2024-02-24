@@ -13,9 +13,9 @@ inv_cert_bundles:
     type: "CA"
     src: "/tmp/My-Local-Ansible-Intermediate-CA-2.pem.crt"
 
-  - name: "my-grafana.domain.tld"
+  - name: "my-grafana-server.domain.tld"
     type: "cert"
-    src: "/tmp/my-grafana.domain.tld.zip"
+    src: "/tmp/my-grafana-server.domain.tld.zip"
     dest: "/etc/grafana/ssl"
     #src_user: "myUser"
     #src_password: "secretPassword"
